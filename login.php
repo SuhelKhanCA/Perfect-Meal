@@ -64,7 +64,7 @@
 													<strong>Authenticated</strong> \ \
 												</div>');
 
-							window.location.href = "blog.php";
+							window.location.href = "addtestimonial.php";
 						  
 						  } else if (html=='false') {
 								$("#add_err2").html('<div class="alert alert-danger"> \
@@ -137,8 +137,9 @@
             <div class="box">
                 <div class="col-lg-12">
                     
-					<div class="alert alert-danger">
-					<strong>You must be logged in to view the blog.</strong>
+					<div class="d-flex alert alert-danger ms-auto">
+					<strong class="ms-auto">You must be logged in to view the blog.</strong>
+          <button type="button" class="btn-close ms-auto flex-end" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 					
 					<hr>
@@ -146,7 +147,7 @@
                         <strong>Login</strong>
                     </h2>
 					<div id="add_err2"></div>
-                    <hr>       
+                    <!-- <hr>        -->
                     <form role="form">
                         <div class="row">
                             <div class="form-group">

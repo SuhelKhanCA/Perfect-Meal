@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>PerfectRestaurant - Bootstrap Restaurant Template</title>
+    <title>PerfectMeal - Bootstrap Restaurant Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
@@ -41,6 +41,80 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet" />
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+	
+		<script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#contact").click(function () {
+
+                fname = $("#fname").val();
+                email = $("#email").val();
+                message = $("#message").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "sendmsg.php",
+                    data: "fname=" + fname + "&email=" + email + "&message=" + message,
+                    success: function (html) {
+                        if (html == 'true') {
+
+                            $("#add_err2").html('<div class="alert alert-success"> \
+                                                 <strong>Message Sent!</strong> \ \
+                                                 </div>');
+
+                        } else if (html == 'fname_long') {
+                            $("#add_err2").html('<div class="alert alert-danger"> \
+                                                 <strong>First Name</strong> must cannot exceed 50 characters. \ \
+                                                 </div>');
+						
+						} else if (html == 'fname_short') {
+                            $("#add_err2").html('<div class="alert alert-danger"> \
+                                                 <strong>First Name</strong> must exceed 2 characters. \ \
+                                                 </div>');
+												 
+						} else if (html == 'email_long') {
+                            $("#add_err2").html('<div class="alert alert-danger"> \
+                                                 <strong>Email</strong> must cannot exceed 50 characters. \ \
+                                                 </div>');
+						
+						} else if (html == 'email_short') {
+                            $("#add_err2").html('<div class="alert alert-danger"> \
+                                                 <strong>Email</strong> must exceed 2 characters. \ \
+                                                 </div>');
+												 
+						} else if (html == 'eformat') {
+                            $("#add_err2").html('<div class="alert alert-danger"> \
+                                                 <strong>Email</strong> format incorrect. \ \
+                                                 </div>');
+												 
+						} else if (html == 'message_long') {
+                            $("#add_err2").html('<div class="alert alert-danger"> \
+                                                 <strong>Message</strong> must cannot exceed 50 characters. \ \
+                                                 </div>');
+						
+						} else if (html == 'message_short') {
+                            $("#add_err2").html('<div class="alert alert-danger"> \
+                                                 <strong>Message</strong> must exceed 2 characters. \ \
+                                                 </div>');
+
+
+                        } else {
+                            $("#add_err2").html('<div class="alert alert-danger"> \
+                                                 <strong>Error</strong> processing request. Please try again. \ \
+                                                 </div>');
+                        }
+                    },
+                    beforeSend: function () {
+                        $("#add_err2").html("loading...");
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+
   </head>
 
   <body>
@@ -59,55 +133,10 @@
         </div>
       </div>
       <!-- Spinner End -->
-
-      <!-- Navbar & Hero Start -->
+      <!-- Nav Bar -->
+       <?php include_once 'nav.php' ?>
+      <!-- Hero Start -->
       <div class="container-xxl position-relative p-0">
-        <nav
-          class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0"
-        >
-          <a href="" class="navbar-brand p-0">
-            <h1 class="text-primary m-0">
-              <i class="fa fa-utensils me-3"></i>PerfectRestaurant
-            </h1>
-            <!-- <img src="img/logo.png" alt="Logo"> -->
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse"
-          >
-            <span class="fa fa-bars"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto py-0 pe-4">
-              <a href="index.html" class="nav-item nav-link">Home</a>
-              <a href="about.html" class="nav-item nav-link">About</a>
-              <a href="service.html" class="nav-item nav-link">Service</a>
-              <a href="menu.html" class="nav-item nav-link">Menu</a>
-              <div class="nav-item dropdown">
-                <a
-                  href="#"
-                  class="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  >Pages</a
-                >
-                <div class="dropdown-menu m-0">
-                  <a href="booking.html" class="dropdown-item">Booking</a>
-                  <a href="team.html" class="dropdown-item">Our Team</a>
-                  <a href="testimonial.html" class="dropdown-item"
-                    >Testimonial</a
-                  >
-                </div>
-              </div>
-              <a href="contact.html" class="nav-item nav-link active"
-                >Contact</a
-              >
-            </div>
-            <a href="" class="btn btn-primary py-2 px-4">Book A Table</a>
-          </div>
-        </nav>
-
         <div class="container-xxl py-5 bg-dark hero-header mb-5">
           <div class="container text-center my-5 pt-5 pb-4">
             <h1 class="display-3 text-white mb-3 animated slideInDown">
@@ -128,7 +157,7 @@
           </div>
         </div>
       </div>
-      <!-- Navbar & Hero End -->
+      <!-- Hero End -->
 
       <!-- Contact Start -->
       <div class="container-xxl py-5">
@@ -192,6 +221,8 @@
             </div>
             <div class="col-md-6">
               <div class="wow fadeInUp" data-wow-delay="0.2s">
+                <hr>
+                <div id="add_err2"></div>
                 <form>
                   <div class="row g-3">
                     <div class="col-md-6">
@@ -199,7 +230,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          id="name"
+                          id="fname"
                           placeholder="Your Name"
                         />
                         <label for="name">Your Name</label>
@@ -253,122 +284,7 @@
       <!-- Contact End -->
 
       <!-- Footer Start -->
-      <div
-        class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn"
-        data-wow-delay="0.1s"
-      >
-        <div class="container py-5">
-          <div class="row g-5">
-            <div class="col-lg-3 col-md-6">
-              <h4
-                class="section-title ff-secondary text-start text-primary fw-normal mb-4"
-              >
-                Company
-              </h4>
-              <a class="btn btn-link" href="">About Us</a>
-              <a class="btn btn-link" href="">Contact Us</a>
-              <a class="btn btn-link" href="">Reservation</a>
-              <a class="btn btn-link" href="">Privacy Policy</a>
-              <a class="btn btn-link" href="">Terms & Condition</a>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <h4
-                class="section-title ff-secondary text-start text-primary fw-normal mb-4"
-              >
-                Contact
-              </h4>
-              <p class="mb-2">
-                <i class="fa fa-map-marker-alt me-3"></i>123 Street, New York,
-                USA
-              </p>
-              <p class="mb-2">
-                <i class="fa fa-phone-alt me-3"></i>+012 345 67890
-              </p>
-              <p class="mb-2">
-                <i class="fa fa-envelope me-3"></i>info@example.com
-              </p>
-              <div class="d-flex pt-2">
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-youtube"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-linkedin-in"></i
-                ></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <h4
-                class="section-title ff-secondary text-start text-primary fw-normal mb-4"
-              >
-                Opening
-              </h4>
-              <h5 class="text-light fw-normal">Monday - Saturday</h5>
-              <p>09AM - 09PM</p>
-              <h5 class="text-light fw-normal">Sunday</h5>
-              <p>10AM - 08PM</p>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <h4
-                class="section-title ff-secondary text-start text-primary fw-normal mb-4"
-              >
-                Newsletter
-              </h4>
-              <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-              <div class="position-relative mx-auto" style="max-width: 400px">
-                <input
-                  class="form-control border-primary w-100 py-3 ps-4 pe-5"
-                  type="text"
-                  placeholder="Your email"
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
-                >
-                  SignUp
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="copyright">
-            <div class="row">
-              <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                &copy; <a class="border-bottom" href="#">Your Site Name</a>, All
-                Right Reserved.
-
-                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                Designed By
-                <a class="border-bottom" href="https://htmlcodex.com"
-                  >HTML Codex</a
-                ><br /><br />
-                Distributed By
-                <a
-                  class="border-bottom"
-                  href="https://themewagon.com"
-                  target="_blank"
-                  >ThemeWagon</a
-                >
-              </div>
-              <div class="col-md-6 text-center text-md-end">
-                <div class="footer-menu">
-                  <a href="">Home</a>
-                  <a href="">Cookies</a>
-                  <a href="">Help</a>
-                  <a href="">FQAs</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Footer End -->
+     <?php include_once 'footer.php' ?>
 
       <!-- Back to Top -->
       <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"

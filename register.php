@@ -43,7 +43,7 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet" />
 	<!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="./js/jquery.js"></script>
 	
 	<!-- Script -->
 	<script type="text/javascript">
@@ -153,7 +153,7 @@
                     </h2>
 					<div id="add_err2"></div>
                     <hr>       
-                    <form role="form">
+                    <form role="form" >
                         <div class="row">
                             <div class="form-group col-lg-4">
                                 <label class="">First Name</label>
