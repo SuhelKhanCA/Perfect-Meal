@@ -76,7 +76,7 @@
                   type="button"
                   class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
                 >
-                  Subscribe
+                  SignUp
                 </button>
               </div>
             </div>
@@ -94,12 +94,12 @@
                 <a class="border-bottom" href="https://htmlcodex.com"
                   >Codex</a
                 ><br /><br />
-                Distributed by
+                Distributed By
                 <a
                   class="border-bottom"
-                  href="https://htmlcodex.com"
+                  href="https://github.com/suhelkhanca"
                   target="_blank"
-                  >Codex</a
+                  >Suhel Khan</a
                 >
               </div>
               
